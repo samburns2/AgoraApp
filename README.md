@@ -1,1 +1,1 @@
-# SeniorDesign
+# Agora App | Senior Design Project
