@@ -3,10 +3,10 @@ import { updateObject } from "../utility";
 
 const initialState = {
   token: null,
-  error: null,
   username: null,
   is_student: null,
   is_teacher: null,
+  error: null,
   loading: false
 };
 

@@ -16,8 +16,8 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        let is_student = false
-        if (values.userType === 'student') is_student = true;
+        let is_student = false;
+        if (values.userType === "student") is_student = true;
         this.props.onAuth(
           values.userName,
           values.email,
@@ -25,7 +25,7 @@ class RegistrationForm extends React.Component {
           values.confirm,
           is_student
         );
-        this.props.history.push("/");
+        // this.props.history.push("/");
       }
     });
   };
@@ -134,11 +134,10 @@ class RegistrationForm extends React.Component {
             rules: [
               {
                 required: true,
-                message: "Please select a user type"
+                message: "Please select a user!"
               }
             ]
           })(
-
             <Select placeholder="Select a user type">
               <Option value="student">Student</Option>
               <Option value="teacher">Teacher</Option>
@@ -156,7 +155,6 @@ class RegistrationForm extends React.Component {
           </Button>
           Or
           <NavLink style={{ marginRight: "10px" }} to="/login/">
-            {" "}
             login
           </NavLink>
         </FormItem>
@@ -177,7 +175,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (username, email, password1, password2, is_student) =>
-      dispatch(actions.authSignup(username, email, password1, password2, is_student))
+      dispatch(
+        actions.authSignup(username, email, password1, password2, is_student)
+      )
   };
 };
 

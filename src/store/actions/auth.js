@@ -58,7 +58,13 @@ export const authLogin = (username, password) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2, is_student) => {
+export const authSignup = (
+  username,
+  email,
+  password1,
+  password2,
+  is_student
+) => {
   return dispatch => {
     dispatch(authStart());
     const user = {
@@ -68,7 +74,7 @@ export const authSignup = (username, email, password1, password2, is_student) =>
       password2,
       is_student,
       is_teacher: !is_student
-    }
+    };
     axios
       .post("http://127.0.0.1:8000/rest-auth/registration/", user)
       .then(res => {
@@ -78,8 +84,7 @@ export const authSignup = (username, email, password1, password2, is_student) =>
           is_student,
           is_teacher: !is_student,
           expirationDate: new Date(new Date().getTime() + 3600 * 1000)
-
-        }
+        };
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(authSuccess(user));
         dispatch(checkAuthTimeout(3600));
