@@ -45,14 +45,13 @@ export const authLogin = (username, password) => {
         password: password
       })
       .then(res => {
-        console.log(res.data);
         const user = {
           token: res.data.key,
           username,
           userId: res.data.user,
           is_student: res.data.user_type.is_student,
           is_teacher: res.data.user_type.is_teacher,
-          expirationDate: new Date(new Date().getTime() + 3600 * 1000),
+          expirationDate: new Date(new Date().getTime() + 3600 * 1000)
         };
         localStorage.setItem("user", JSON.stringify(user));
         dispatch(authSuccess(user));
@@ -87,6 +86,7 @@ export const authSignup = (
         const user = {
           token: res.data.key,
           username,
+          userId: res.data.user,
           is_student,
           is_teacher: !is_student,
           expirationDate: new Date(new Date().getTime() + 3600 * 1000)
