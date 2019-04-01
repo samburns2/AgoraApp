@@ -52,7 +52,7 @@ class CollaborationScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Collaboration Content!</Text>
+        <Text>Collaboration Content</Text>
       </View>
     );
   }
@@ -69,8 +69,9 @@ class FileScreen extends React.Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
-  Settings: SettingsScreen,
+  Discussions: DiscussionScreen,
+  Collaborations: CollaborationScreen,
+  Files: FileScreen,
 });
 
 export default createAppContainer(TabNavigator);
