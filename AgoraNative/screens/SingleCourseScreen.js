@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
-import { AppRegistry, ScrollView, Text, Button } from 'react-native';
+import React from 'react';
+import {ScrollView, Text, Button } from 'react-native';
 
-export default class CourseModules extends Component {
+export default class SingleCourseScreen extends React.Component {
+  static navigationOptions = {
+    title: 'COURSE 1',
+  };
   render() {
       return (
         <ScrollView>
@@ -29,7 +32,6 @@ export default class CourseModules extends Component {
     );
   }
 }
-
 
 /* tab example
 from https://reactnavigation.org/docs/en/tab-based-navigation.html

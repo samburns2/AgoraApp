@@ -1,33 +1,35 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, Button,TextInput, StatusBar, StyleSheet, View, Text} from 'react-native';
+import { AsyncStorage, Button,TextInput, StyleSheet, View, Image} from 'react-native';
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundColor: 'white'
     },
   });
 
 export default class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: 'Please sign in',
+    title: 'AGORA TEACHING APP',
   };
 
   render() {
     return (
       <View style={styles.container}>
+      <Image source={require('../agora-logo.jpg')}/>
         <TextInput
-          style={{height: 40}}
-          placeholder="Username"
-          onChangeText={(username) => this.setState({username})}
+          style={{height: 50, borderColor: 'gray', padding: 15}}
+          placeholder="USERNAME"
+          onChangeText={(text) => this.setState({text})}
         />
         <TextInput
-          style={{height: 40}}
-          placeholder="Password"
+          style={{height: 50, borderColor: 'gray', padding: 15}}
+          placeholder="PASSWORD"
           onChangeText={(password) => this.setState({password})}
         />
-        <Button title="Sign in!" onPress={this._signInAsync} />
+        <Button title="SIGN IN" onPress={this._signInAsync} />
       </View>
     );
   }
