@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 export default class SignOutScreen extends React.Component {
     static navigationOptions = {
-      title: 'Sign Out',
+      title: 'AGORA TEACHING APP',
     };
   
     render() {
