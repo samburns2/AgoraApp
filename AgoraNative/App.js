@@ -10,6 +10,10 @@ const subdomain = "sam-s-school-3912";
 const contentType = "application/json";
 const url = "https://api.thinkific.com/api/public/";
 
+axios.defaults.headers.common['X-Auth-API-Key'] = API_KEY;
+axios.defaults.headers.common['X-Auth-Subdomain'] = subdomain;
+axios.defaults.headers.common['Content-Type'] = contentType;
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
