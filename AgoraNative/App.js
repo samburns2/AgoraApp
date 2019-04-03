@@ -3,7 +3,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
 
-//import axios from 'axios';
+import axios from 'axios';
 
 const API_KEY = "2db7e349bfa5be794690cfa5ff930713";
 const subdomain = "sam-s-school-3912";
