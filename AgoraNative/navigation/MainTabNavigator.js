@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SignOutScreen from '../screens/SignOutScreen';
+import API from '../screens/APITest';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -51,8 +52,23 @@ SignOutStack.navigationOptions = {
   ),
 };
 
+const APIStack = createStackNavigator({
+  APITest: API,
+});
+
+APIStack.navigationOptions = {
+  tabBarLabel: 'API',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   SearchStack,
   SignOutStack,
+  APIStack,
 });

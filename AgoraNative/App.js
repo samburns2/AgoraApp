@@ -8,7 +8,7 @@ import axios from 'axios';
 const API_KEY = "2db7e349bfa5be794690cfa5ff930713";
 const subdomain = "sam-s-school-3912";
 const contentType = "application/json";
-const url = "https://api.thinkific.com/api/public/";
+const url = "https://api.thinkific.com/api/public/v1/";
 
 axios.defaults.headers.common['X-Auth-API-Key'] = API_KEY;
 axios.defaults.headers.common['X-Auth-Subdomain'] = subdomain;
