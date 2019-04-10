@@ -49,7 +49,7 @@ export default class API extends React.Component {
             >
             </Card>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log("hi")}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[1].id, courseName: courses[1].name})}>
             <Card
                 title={courses[1].name}
                 image={{uri: courses[1].course_card_image_url}}

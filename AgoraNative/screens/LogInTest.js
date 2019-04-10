@@ -1,5 +1,6 @@
 import React from 'react';
 import { AsyncStorage, Button,TextInput, StyleSheet, View, Image} from 'react-native';
+import axios from 'axios';
 
   const styles = StyleSheet.create({
     container: {
@@ -13,6 +14,34 @@ import { AsyncStorage, Button,TextInput, StyleSheet, View, Image} from 'react-na
 export default class SignInScreen extends React.Component {
   static navigationOptions = {
     title: 'AGORA TEACHING APP',
+  };
+
+  state = {
+    text: "",
+    password: "",
+    userList: {},
+  }
+
+  findUser = () => {
+    var self = this;
+    var userID;
+    axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D="+ this.state.text.toLowerCase())
+    .then(function(response){
+      // console.log(response.data);
+       userID = response.data.items[0].id;
+       //self.setState({userList: response.data});
+       console.log(userID);
+       return axios.get("https://api.thinkific.com/api/public/v1/users/" + userID)
+        .then(function(response){
+           console.log(response.data);
+       })
+   })
+  }
+
+  _signInAsync = async () => {
+    this.findUser();
+    await AsyncStorage.setItem('userToken', 'abc');
+    this.props.navigation.navigate('App');
   };
 
   render() {
@@ -29,13 +58,10 @@ export default class SignInScreen extends React.Component {
           placeholder="PASSWORD"
           onChangeText={(password) => this.setState({password})}
         />
-        <Button title="SIGN IN" onPress={this._signInAsync} />
+        <Button title="SIGN IN" onPress={
+          this._signInAsync
+          } />
       </View>
     );
   }
-
-  _signInAsync = async () => {
-    await AsyncStorage.setItem('userToken', 'abc');
-    this.props.navigation.navigate('App');
-  };
 }
