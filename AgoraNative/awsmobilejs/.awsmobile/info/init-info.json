@@ -1,0 +1,56 @@
+{
+	"projectPath": "/Users/samburns/Desktop/AgoraApp/AgoraNative",
+	"projectInfo": {
+		"ProjectName": "AgoraNative",
+		"ProjectPath": "/Users/samburns/Desktop/AgoraApp/AgoraNative",
+		"InitializationTime": "",
+		"LastConfigurationTime": "",
+		"LastNPMInstallTime": "",
+		"FrontendLastBuildTime": "",
+		"LastPublishTime": "",
+		"BackendLastSyncTime": "",
+		"BackendLastBuildTime": "",
+		"BackendLastPushTime": "",
+		"BackendProjectID": "",
+		"BackendProjectName": "",
+		"BackendProjectConsoleUrl": "",
+		"BackendProjectCreationTime": "",
+		"BackendProjectLastUpdatedTime": "",
+		"Framework": "react-native"
+	},
+	"packageJson": {
+		"main": "node_modules/expo/AppEntry.js",
+		"scripts": {
+			"start": "expo start",
+			"android": "expo start --android",
+			"ios": "expo start --ios",
+			"eject": "expo eject",
+			"test": "node ./node_modules/jest/bin/jest.js --watchAll"
+		},
+		"jest": {
+			"preset": "jest-expo"
+		},
+		"dependencies": {
+			"@expo/samples": "2.1.1",
+			"aws-amplify": "^1.1.25",
+			"axios": "^0.18.0",
+			"expo": "^32.0.0",
+			"react": "16.5.0",
+			"react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+			"react-native-elements": "^1.1.0",
+			"react-native-fbsdk": "^0.8.0",
+			"react-navigation": "^3.0.9",
+			"react-redux": "^7.0.1",
+			"redux": "^4.0.1",
+			"redux-thunk": "^2.3.0"
+		},
+		"devDependencies": {
+			"babel-preset-expo": "^5.0.0",
+			"jest-expo": "^32.0.0"
+		},
+		"private": true
+	},
+	"framework": "react-native",
+	"initialStage": "clean-slate",
+	"strategy": "create"
+}

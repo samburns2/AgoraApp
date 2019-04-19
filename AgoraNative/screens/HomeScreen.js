@@ -11,9 +11,6 @@ const styles = StyleSheet.create({
 });
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'YOUR DASHBOARD',
-  };
 //for loop through the list of enrollments, make a button for each course with course name and course id
 
   render() {

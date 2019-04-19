@@ -22,7 +22,7 @@ export default class API extends React.Component {
         var self = this;
         return axios.get("https://api.thinkific.com/api/public/v1/courses?page=1&limit=25")
         .then(function(response){
-           // console.log(response.data);
+            console.log(response.data);
             self.setState({data: response.data});
         })
     }
@@ -47,6 +47,9 @@ export default class API extends React.Component {
                 title={courses[0].name}
                 image={{uri: courses[0].course_card_image_url}}
             >
+            <Text style={{marginBottom: 10}}>
+                {courses[0].description}
+            </Text>
             </Card>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[1].id, courseName: courses[1].name})}>
@@ -54,7 +57,7 @@ export default class API extends React.Component {
                 title={courses[1].name}
                 image={{uri: courses[1].course_card_image_url}}
             >
-             <Text style={{marginBottom: 10}}>
+            <Text style={{marginBottom: 10}}>
                 {courses[1].description}
             </Text>
             </Card>

@@ -1,0 +1,19 @@
+{
+    "agora": {
+        "awscloudformation": {
+            "AuthRoleName": "agoranative-20190419103933-authRole",
+            "UnauthRoleArn": "arn:aws:iam::871156448741:role/agoranative-20190419103933-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::871156448741:role/agoranative-20190419103933-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "agoranative-20190419103933-deployment",
+            "UnauthRoleName": "agoranative-20190419103933-unauthRole",
+            "StackName": "agoranative-20190419103933",
+            "StackId": "arn:aws:cloudformation:us-west-2:871156448741:stack/agoranative-20190419103933/182b7d90-62ca-11e9-94f8-0af8c7390b1e"
+        },
+        "categories": {
+            "auth": {
+                "cognitod56f25de": {}
+            }
+        }
+    }
+}
