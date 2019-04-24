@@ -14,6 +14,12 @@ export default class SettingsScreen extends React.Component {
     title: 'Search for New Courses',
   };
 
+  keywordCheck()
+  {
+    //use API to look at course list and check if keywords are similar
+    //if text input == courses.keywords
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -23,7 +29,7 @@ export default class SettingsScreen extends React.Component {
           onChangeText={(text) => this.setState({text})}
         />
         <Button
-            onPress={() => navigate()}
+            onPress={() => keywordCheck()}
             title="SEARCH"
             color="#1f66b1"
             accessibilityLabel="Search enter"
