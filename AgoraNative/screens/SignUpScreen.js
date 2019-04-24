@@ -27,6 +27,7 @@ import Auth from '@aws-amplify/auth'
 
 // Import data for countries
 import data from '../assets/countriesData'
+import axios from 'axios';
 
 // Load the app logo
 const logo = require('../assets/images/agora.png')
@@ -143,7 +144,7 @@ export default class SignUpScreen extends React.Component {
     const { username, authCode } = this.state
     await Auth.confirmSignUp(username, authCode)
     .then(() => {
-      this.props.navigation.navigate('SignIn')
+      this.props.navigation.navigate('CreateThinkificUser', {userEmail: this.state.email, userPassword: this.state.password})
       console.log('Confirm sign up successful')
     })
     .catch(err => {

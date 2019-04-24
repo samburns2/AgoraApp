@@ -42,6 +42,8 @@ import SettingsScreen from './screens/SettingsScreen'
 // Amplify imports and config
 import Amplify from '@aws-amplify/core'
 import config from './aws-exports'
+import SingleCourseScreen from './screens/SingleCourseScreen';
+import CreateThinkificUserScreen from './screens/CreateThinkificUserScreen';
 Amplify.configure(config)
 
 // Configurations and options for the AppTabNavigator
@@ -177,12 +179,19 @@ const AuthStackNavigator = createStackNavigator({
       title: `Create a new password`,
     }),
   },
+  CreateThinkificUser: {
+    screen: CreateThinkificUserScreen,
+    navigationOptions: () => ({
+      title: `Enter First and Last Name`,
+    }),
+  },
 })
 
 const AppNav =  createSwitchNavigator({
   Authloading: AuthLoadingScreen,
   Auth: AuthStackNavigator, // the Auth stack
   App: AppDrawerNavigator, // the App stack
+  SingleCourse: SingleCourseScreen
 })
 
 const AppContainer = createAppContainer(AppNav);
