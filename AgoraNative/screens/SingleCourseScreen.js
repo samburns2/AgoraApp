@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {View, ScrollView, Text} from 'react-native';
+import {View, ScrollView, Text, Linking} from 'react-native';
 import { Button, Card } from 'react-native-elements';
+import { Constants, WebBrowser } from 'expo';
 
 export default class SingleCourseScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -36,6 +37,11 @@ getChapters = () => {
   })
 }
 
+_handlePressButtonAsync = async () => {
+  let result = await WebBrowser.openBrowserAsync('https://www.thinkific.com/');
+  //this.setState({ result });
+};
+
   render() {
     this.state.ID = this.props.navigation.getParam('courseID', 'NO-ID');
 
@@ -61,16 +67,21 @@ getChapters = () => {
 
       return (
         <ScrollView>
-          <Card
-            title = {courseChapters[0].name}
-          >
-            <Button 
-              title="Enroll"
-              type="solid"
-              raised={true} 
+            <Card
+              title = {courseChapters[0].name}
             >
-            </Button>
-          </Card>
+              <Button 
+                title="Enroll"
+                type="solid"
+                raised={true} 
+              >
+              </Button>
+            </Card>
+          <Button
+            title="Open WebBrowser"
+            onPress={this._handlePressButtonAsync}
+          />
+          <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
         </ScrollView>
     );
   }

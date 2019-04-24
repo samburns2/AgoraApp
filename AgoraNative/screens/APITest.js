@@ -15,54 +15,53 @@ export default class API extends React.Component {
     state = {
         data: {},
         numCourses: {},
-        gotCourses: false
+        gotCourses: false,
+        meta: {}
     }
     
     getCourseList = () =>{
         var self = this;
         return axios.get("https://api.thinkific.com/api/public/v1/courses?page=1&limit=25")
         .then(function(response){
-            console.log(response.data);
             self.setState({data: response.data});
+            self.setState({meta: response.data.meta});
         })
     }
   
     render() {
         if (!this.state.gotCourses){
             this.getCourseList();
-            this.state.gotCourses = true;
+            if (this.state.data)
+            {
+                this.state.gotCourses = true;
+            }
         }
         courses = this.state.data.items;
-        //console.log(courses);
         
         if (!courses)
         {
             return <View/>
         }
 
-      return (
-        <ScrollView style={{flex: 1}}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[0].id, courseName: courses[0].name})}>
-            <Card
-                title={courses[0].name}
-                image={{uri: courses[0].course_card_image_url}}
-            >
-            <Text style={{marginBottom: 10}}>
-                {courses[0].description}
-            </Text>
-            </Card>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[1].id, courseName: courses[1].name})}>
-            <Card
-                title={courses[1].name}
-                image={{uri: courses[1].course_card_image_url}}
-            >
-            <Text style={{marginBottom: 10}}>
-                {courses[1].description}
-            </Text>
-            </Card>
-            </TouchableOpacity>
-        </ScrollView>
-      );
+    if(this.state.gotCourses)
+    {
+        for(let i = 0; i < 25; i++)
+        {
+          return (
+            <ScrollView style={{flex: 1}}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[i].id, courseName: courses[i].name})}>
+                    <Card
+                        title={courses[i].name}
+                        image={{uri: courses[i].course_card_image_url}}
+                    >
+                        <Text style={{marginBottom: 10}}>
+                            {courses[i].description}
+                        </Text>
+                    </Card>
+                </TouchableOpacity>
+            </ScrollView>
+            );
+        }
     }
   }
+}
