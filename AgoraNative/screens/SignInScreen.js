@@ -159,7 +159,7 @@ export default class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#5059ae',
+    backgroundColor: '#035ffe',
     justifyContent: 'center',
     flexDirection: 'column'
   },
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    backgroundColor: '#5059ae',
+    backgroundColor: '#035ffe',
   },
   itemStyle: {
     marginBottom: 20,
