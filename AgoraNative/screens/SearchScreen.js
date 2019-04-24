@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class SettingsScreen extends React.Component {
+export default class SearchScreen extends React.Component {
   static navigationOptions = {
     title: 'Search for New Courses',
   };

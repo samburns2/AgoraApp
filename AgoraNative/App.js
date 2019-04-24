@@ -35,8 +35,9 @@ import ForgetPasswordScreen from './screens/ForgetPasswordScreen'
 
 // App stack screen imports
 import HomeScreen from './screens/HomeScreen'
+import CourseListScreen from './screens/CourseList';
+import SearchScreen from './screens/SearchScreen'
 import SettingsScreen from './screens/SettingsScreen'
-import ProfileScreen from './screens/ProfileScreen'
 
 // Amplify imports and config
 import Amplify from '@aws-amplify/core'
@@ -54,13 +55,22 @@ const configurations = {
       )
     }
   },
-  Profile: {
-    screen: ProfileScreen,
+  Courses: {
+    screen: CourseListScreen,
     navigationOptions: {
-      tabBarLabel: 'Profile',
+      tabBarLabel: 'Courses',
       tabBarIcon: ({tintColor}) => (
         <Ionicons style={{fontSize: 26, color: tintColor}} name="ios-person" />
       )
+    }
+  },
+  Search: {
+    screen: SearchScreen,
+    navigationOptions: {
+      tabBarLabel: 'Search',
+      tabBarIcon: ({tintColor}) => (
+        <Ionicons style={{fontSize: 26, color: tintColor}} name="ios-search" />
+      )   
     }
   },
   Settings: {
@@ -117,6 +127,7 @@ const AppStackNavigator = createStackNavigator({
   Header: {
     screen: AppTabNavigator,
     // Set the header icon
+    /*
     navigationOptions: ({navigation}) => ({
       headerLeft: (
         <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
@@ -126,6 +137,7 @@ const AppStackNavigator = createStackNavigator({
         </TouchableOpacity>
       )
     })
+    */
   }    
 })
 
@@ -133,7 +145,8 @@ const AppStackNavigator = createStackNavigator({
 const AppDrawerNavigator = createDrawerNavigator({
   Tabs: AppStackNavigator, // defined above
   Home: HomeScreen,
-  Profile: ProfileScreen,
+  CourseList: CourseListScreen,
+  Search: SearchScreen,
   Settings: SettingsScreen
 })
 
