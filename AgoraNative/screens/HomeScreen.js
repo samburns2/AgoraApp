@@ -1,53 +1,70 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Button} from 'react-native';
-import SingleCourse from '../screens/SingleCourseScreen';
-import { createStackNavigator, createAppContainer } from 'react-navigation'; 
-
+import {ScrollView, StyleSheet, Button, View, StatusBar, Image, Text, TouchableOpacity} from 'react-native';
+import axios from 'axios';
+import { Card, Tile } from 'react-native-elements';
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
 });
 
-export default class HomeScreen extends React.Component {
-//for loop through the list of enrollments, make a button for each course with course name and course id
+export default class CourseListScreen extends React.Component {
+    state = {
+        enrollmentData: {},
+        totalEnrollments: {},
+        courseData: {},
+        gotEnrollments: false,
+        gotCourseData: false,
+        email: '',
+    }
 
-  render() {
-    return (
-      <ScrollView style={styles.container}>
-          <Button
-            onPress={() => this._showSingleCourse}
-            title="Course 1"
-            color="#1f66b1"
-            accessibilityLabel="Course 1 button"
-          />
-         
-          <Button
-            onPress={() => this.props.navigation.navigate('SingleCourse')}
-            title="Course 2"
-            color="#1f66b1"
-            accessibilityLabel="Course 2 button"
-          />
-          
-          <Button
-            onPress={() => this.props.navigation.navigate('SingleCourse')}
-            title="Course 3"
-            color="#1f66b1"
-            accessibilityLabel="Course 3 button"
-          />
+    getEnrollments = () => {
+      axios.get("https://api.thinkific.com/api/public/v1/enrollments?query%5Bemail%5D=" + this.state.email)
+      .then(response => {
+        this.setState({enrollmentData: response.data, totalEnrollments: response.data.meta.pagination.total_items})
+      })
+    }
+    
+    getCourseInfo = (numEnrollments) => {
+      courseIDs = []
+      var i;
+      for (i = 0; i < numEnrollments; i++)
+      {
+        courseIDs.push(this.state.enrollmentData.items[i].id)
+      }
 
-          <Button
-            onPress={() => this.props.navigation.navigate('SingleCourse')}
-            title="Course 4"
-            color="#1f66b1"
-            accessibilityLabel="Course 4 button"
-          />
+      for (i = 0; i < numEnrollments; i++)
+      {
+        console.log(courseIDs[i])
+        axios.get("https://api.thinkific.com/api/public/v1/courses/" + '25917443)
+        .then(response => {
+          console.log(response.data)
+        })
+      }
+    }
+
+    render() {
+      this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
+        if (!this.state.gotEnrollments){
+            this.getEnrollments();
+            this.state.gotEnrollments = true;
+        }
+        courses = this.state.enrollmentData.items;
+
+        if (!this.state.gotCourseData && this.state.gotEnrollments)
+        {
+          this.getCourseInfo(this.state.totalEnrollments);
+        }
+        if (courses === undefined)
+        {
+            return <View/>
+        }
+
+      return (
+        <ScrollView style={{flex: 1}}>
         </ScrollView>
-    );
+      );
+    }
   }
-}
-
-_showSingleCourse = () =>{
-  this.props.navigation.navigate('SingleCourse')
-};

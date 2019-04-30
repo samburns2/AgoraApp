@@ -10,7 +10,8 @@ import Auth from '@aws-amplify/auth'
 
 export default class AuthLoadingScreen extends React.Component {
   state = {
-    userToken: null
+    userToken: null,
+    username: null
   }
   async componentDidMount () {
     await this.loadApp()
@@ -19,10 +20,19 @@ export default class AuthLoadingScreen extends React.Component {
   loadApp = async () => {
     await Auth.currentAuthenticatedUser()
     .then(user => {
-      this.setState({userToken: user.signInUserSession.accessToken.jwtToken})
+      this.setState({userToken: user.signInUserSession.accessToken.jwtToken, username: user.username})
+      this.setState({username: user.username})
     })
     .catch(err => console.log(err))
-    this.props.navigation.navigate(this.state.userToken ? 'App' : 'Auth')
+    if(this.state.userToken)
+    {
+      console.log(this.state.username)
+      this.props.navigation.navigate('Home', {email: this.state.username})
+    }
+    else
+    {
+      this.props.navigation.navigate('Auth')
+    }
   }
   render() {
     return (
