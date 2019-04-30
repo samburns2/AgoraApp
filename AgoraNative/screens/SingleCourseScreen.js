@@ -23,7 +23,6 @@ export default class SingleCourseScreen extends React.Component {
     var self = this;
     return axios.get("https://api.thinkific.com/api/public/v1/courses/"+this.state.ID)
     .then(function(response){
-        //console.log(response.data);
         self.setState({data: response.data});
     })
 }
@@ -32,14 +31,16 @@ getChapters = () => {
   var self = this;
   return axios.get("https://api.thinkific.com/api/public/v1/chapters/1826624/contents?page=1&limit=25")
   .then(function(response){
-    console.log(response.data);
     self.setState({chapters: response.data});
   })
 }
 
 _handlePressButtonAsync = async () => {
-  let result = await WebBrowser.openBrowserAsync('https://www.thinkific.com/');
-  //this.setState({ result });
+  for(var i = 0; i < 25; i++)
+  {
+    var url = this.state.chapters.items[i].take_url;
+    let result = await WebBrowser.openBrowserAsync(url);
+  }
 };
 
   render() {
@@ -58,7 +59,6 @@ _handlePressButtonAsync = async () => {
 
     var courseChapters = this.state.chapters.items;
     var course = this.state.data;
-    console.log(course);
 
     if (!courseChapters)
     {
@@ -70,12 +70,11 @@ _handlePressButtonAsync = async () => {
             <Card
               title = {courseChapters[0].name}
             >
-              <Button 
-                title="Enroll"
-                type="solid"
-                raised={true} 
-              >
-              </Button>
+            <Button 
+              title="Enroll"
+              type="solid"
+              raised={true} 
+            />
             </Card>
           <Button
             title="Open WebBrowser"
