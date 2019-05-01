@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class CourseListScreen extends React.Component {
+export default class EnrollmentDashboard extends React.Component {
     state = {
         enrollmentData: {},
         totalEnrollments: {},
@@ -61,6 +61,7 @@ export default class CourseListScreen extends React.Component {
     }
 
     render() {
+      this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
       const enrollment = this.state.courseData.map(function(enrollment, i){
         return (
             <TouchableOpacity key = {i}>
@@ -72,7 +73,7 @@ export default class CourseListScreen extends React.Component {
             </TouchableOpacity>
         )
       })
-      this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
+  
       if (!this.state.gotEnrollments){
           this.getEnrollments();
           this.state.gotEnrollments = true;
