@@ -49,8 +49,8 @@ _handleEnroll = async () => {
   for(var i = 0; i < 25; i++)
   { 
     var course_num = this.state.chapters.items[i].id; //works!
-    //var user_email = this.state.navigation;
-    //console.log(user);
+    this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
+    console.log(this.state.email);
   }
   return axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=cx@email.com")
   return axios.get("https://api.thinkific.com/api/public/v1/enrollments")
