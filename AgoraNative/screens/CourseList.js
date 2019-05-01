@@ -22,7 +22,7 @@ export default class CourseListScreen extends React.Component {
         var self = this;
         return axios.get("https://api.thinkific.com/api/public/v1/courses?page=1&limit=25")
         .then(function(response){
-            console.log(response.data);
+            //console.log(response.data);
             self.setState({data: response.data});
         })
     }
