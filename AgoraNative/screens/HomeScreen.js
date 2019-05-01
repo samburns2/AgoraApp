@@ -44,22 +44,6 @@ export default class EnrollmentDashboard extends React.Component {
       })
     }
 
-    renderEnrollments() {
-      return this.state.courseData.map(function(enrollment, i){
-        return (
-          <ScrollView key = {i} style={{flex: 1}}>
-            <TouchableOpacity>
-              <Card
-                title={enrollment.name}
-                image={{uri: enrollment.course_card_image_url}}
-              > 
-              </Card>
-            </TouchableOpacity>
-          </ScrollView>
-        )
-      })
-    }
-
     render() {
       this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
       const enrollment = this.state.courseData.map(function(enrollment, i){
