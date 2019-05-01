@@ -26,7 +26,6 @@ export default class AuthLoadingScreen extends React.Component {
     .catch(err => console.log(err))
     if(this.state.userToken)
     {
-      console.log(this.state.username)
       this.props.navigation.navigate('Home', {email: this.state.username})
     }
     else
