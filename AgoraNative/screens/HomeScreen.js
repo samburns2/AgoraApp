@@ -80,7 +80,7 @@ export default class CourseListScreen extends React.Component {
 
       if (this.state.courseData === undefined)
       {
-          return <ScrollView></ScrollView>
+          return <ActivityIndicator size="large" color="#fff" />
       }
       else
       {
