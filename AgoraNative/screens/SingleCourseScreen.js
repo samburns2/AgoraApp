@@ -43,6 +43,22 @@ _handlePressButtonAsync = async () => {
   }
 };
 
+_handleEnroll = async () => {
+  console.log("enroll:"); //need course id and user id
+  var self = this;
+  for(var i = 0; i < 25; i++)
+  { 
+    var course_num = this.state.chapters.items[i].id; //works!
+    //var user_email = this.state.navigation;
+    //console.log(user);
+  }
+  return axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=cx@email.com")
+  return axios.get("https://api.thinkific.com/api/public/v1/enrollments")
+  .then(function(response) {
+    self.setState({data: response.data});
+  })
+};
+
   render() {
     this.state.ID = this.props.navigation.getParam('courseID', 'NO-ID');
 
@@ -72,6 +88,7 @@ _handlePressButtonAsync = async () => {
             >
             <Button 
               title="Enroll"
+              onPress = {this._handleEnroll}
               type="solid"
               raised={true} 
             />
