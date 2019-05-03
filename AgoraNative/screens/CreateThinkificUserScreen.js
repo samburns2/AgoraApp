@@ -157,7 +157,7 @@ export default class CreateThinkificUserScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#035ffe',
+    backgroundColor: '#1f66b1',
     justifyContent: 'center',
     flexDirection: 'column'
   },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    backgroundColor: '#035ffe',
+    backgroundColor: '#1f66b1',
   },
   itemStyle: {
     marginBottom: 20,
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
-    backgroundColor: '#b44666',
+    backgroundColor: '#1f66b1',
     padding: 14,
     marginBottom: 20,
     borderRadius: 3,
