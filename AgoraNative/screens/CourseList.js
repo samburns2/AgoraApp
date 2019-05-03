@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Button, View, StatusBar, Image, Text, TouchableOpacity} from 'react-native';
+import {ScrollView, StyleSheet, Button, View, StatusBar, Image, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import axios from 'axios';
 import { Card, Tile } from 'react-native-elements';
 
@@ -32,37 +32,34 @@ export default class CourseListScreen extends React.Component {
             this.getCourseList();
             this.state.gotCourses = true;
         }
-        courses = this.state.data.items;
-        //console.log(courses);
         
-        if (!courses)
+        if (this.state.data.items === undefined)
         {
-            return <View/>
+            return <ActivityIndicator size="large" color="#fff" />
         }
-
-      return (
-        <ScrollView style={{flex: 1}}>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[0].id, courseName: courses[0].name})}>
-            <Card
-                title={courses[0].name}
-                image={{uri: courses[0].course_card_image_url}}
-            >
-            <Text style={{marginBottom: 10}}>
-                {courses[0].description}
-            </Text>
-            </Card>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: courses[1].id, courseName: courses[1].name})}>
-            <Card
-                title={courses[1].name}
-                image={{uri: courses[1].course_card_image_url}}
-            >
-            <Text style={{marginBottom: 10}}>
-                {courses[1].description}
-            </Text>
-            </Card>
-            </TouchableOpacity>
-        </ScrollView>
-      );
+        else
+        {
+            const course = this.state.data.items.map(function(course, i){
+                return (
+                    <ScrollView style={{flex: 1}} key = {i}>
+                        <Card
+                            title={course.name}
+                            image={{uri: course.course_card_image_url}}
+                        > 
+                            <Text style={{marginBottom: 10}}>
+                                {course.description}
+                            </Text>
+                        </Card>
+                    </ScrollView>
+                )
+              })
+            return (
+                <ScrollView style={{flex: 1}}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: course.id, courseName: course.name})}>
+                    {course}
+                </TouchableOpacity>
+                </ScrollView>
+            );
+        }
     }
-  }
+}

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default class CourseListScreen extends React.Component {
+export default class EnrollmentDashboard extends React.Component {
     state = {
         enrollmentData: {},
         totalEnrollments: {},
@@ -38,14 +38,26 @@ export default class CourseListScreen extends React.Component {
           .then(response => {
             this.state.courseData.push(response.data)
             this.setState(this.state.courseData)
-            console.log(this.state.courseData)
+          //  console.log(this.state.courseData)
           })
         }
       })
     }
 
     render() {
-      this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
+      this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
+      const enrollment = this.state.courseData.map(function(enrollment, i){
+        return (
+            <TouchableOpacity key = {i}>
+              <Card
+                title={enrollment.name}
+                image={{uri: enrollment.course_card_image_url}}
+              > 
+              </Card>
+            </TouchableOpacity>
+        )
+      })
+  
       if (!this.state.gotEnrollments){
           this.getEnrollments();
           this.state.gotEnrollments = true;
@@ -58,8 +70,8 @@ export default class CourseListScreen extends React.Component {
       else
       {
         return ( 
-        
           <ScrollView style={{flex: 1}}>
+          {enrollment}
           </ScrollView>
   
         );
