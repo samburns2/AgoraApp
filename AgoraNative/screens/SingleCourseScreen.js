@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {View, ScrollView, Text, Linking} from 'react-native';
+import {Alert, View, ScrollView, Text} from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { Constants, WebBrowser } from 'expo';
+
 
 export default class SingleCourseScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -21,7 +22,7 @@ export default class SingleCourseScreen extends React.Component {
 
   getCourse = () =>{
     var self = this;
-    return axios.get("https://api.thinkific.com/api/public/v1/courses/"+this.state.ID)
+    return axios.get("https://api.thinkific.com/api/public/v1/courses/" + this.state.ID)
     .then(function(response){
         self.setState({data: response.data});
     })
@@ -44,23 +45,30 @@ _handlePressButtonAsync = async () => {
 };
 
 _handleEnroll = async () => {
-  console.log("enroll:"); //need course id and user id
   var self = this;
   for(var i = 0; i < 25; i++)
-  { 
+  {
     var course_num = this.state.chapters.items[i].id; //works!
-    this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
-    console.log(this.state.email);
+    Alert.alert(
+      'Enrollment',
+      'You are enrolled in this course!',
+      [
+        {text: 'Close', onPress: () => console.warn('Close Pressed')},
+      ]
+    );
   }
-  return axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=cx@email.com")
-  return axios.get("https://api.thinkific.com/api/public/v1/enrollments")
+  return axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email)
   .then(function(response) {
     self.setState({data: response.data});
   })
 };
 
+ //return axios.get("https://api.thinkific.com/api/public/v1/enrollments")
+
   render() {
     this.state.ID = this.props.navigation.getParam('courseID', 'NO-ID');
+    this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
+    console.log("email: " + this.state.email);
 
     if (!this.state.gotCourse){
       this.getCourse();
