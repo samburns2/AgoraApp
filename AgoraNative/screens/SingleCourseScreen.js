@@ -4,7 +4,6 @@ import {Alert, View, ScrollView, Text} from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { Constants, WebBrowser } from 'expo';
 
-
 export default class SingleCourseScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -14,10 +13,13 @@ export default class SingleCourseScreen extends React.Component {
 
   state = {
     data: {},
-    ID: {},
+    courseID: {},
     gotCourse: false,
     chapters: {},
     gotChapters: false,
+    email: '',
+    userID: {},
+    gotUserID: false
 }
 
   getCourse = () =>{
@@ -25,6 +27,7 @@ export default class SingleCourseScreen extends React.Component {
     return axios.get("https://api.thinkific.com/api/public/v1/courses/" + this.state.ID)
     .then(function(response){
         self.setState({data: response.data});
+
     })
 }
 
@@ -44,11 +47,22 @@ _handlePressButtonAsync = async () => {
   }
 };
 
+getUserID = () => {
+  //console.log(this.state.email)
+  axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email)
+  .then(response => {
+    this.setState({userID: response.data.items[0].id})
+  })
+  
+}
+
 _handleEnroll = async () => {
   var self = this;
+  console.log(this.state.courseID)
+  console.log(this.state.userID)
+  
   for(var i = 0; i < 25; i++)
   {
-    var course_num = this.state.chapters.items[i].id; //works!
     Alert.alert(
       'Enrollment',
       'You are enrolled in this course!',
@@ -57,19 +71,18 @@ _handleEnroll = async () => {
       ]
     );
   }
-  return axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email)
+  return axios.post("https://api.thinkific.com/api/public/v1/enrollments/", {
+    course_id: this.state.courseID,
+    user_id: this.state.userID
+  })
   .then(function(response) {
-    self.setState({data: response.data});
+    console.log(response.data)
   })
 };
 
- //return axios.get("https://api.thinkific.com/api/public/v1/enrollments")
-
   render() {
-    this.state.ID = this.props.navigation.getParam('courseID', 'NO-ID');
-    this.state.email = this.props.navigation.getParam('email', 'NO-EMAIL');
-    console.log("email: " + this.state.email);
-
+    this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');//works!
+    this.state.courseID = this.props.navigation.getParam('courseID', 'NO-COURSEID');
     if (!this.state.gotCourse){
       this.getCourse();
       this.state.gotCourse = true;
@@ -81,6 +94,13 @@ _handleEnroll = async () => {
       this.state.gotChapters = true;
     }
 
+    if (this.state.email != 'NO-EMAIL' && !this.state.gotUserID)
+    {
+      this.getUserID();
+      this.state.gotUserID = true
+    }
+
+
     var courseChapters = this.state.chapters.items;
     var course = this.state.data;
 
@@ -89,94 +109,28 @@ _handleEnroll = async () => {
       return <View/>
     }
 
-      return (
-        <ScrollView>
-            <Card
-              title = {courseChapters[0].name}
-            >
-            <Button 
-              title="Enroll"
-              onPress = {this._handleEnroll}
-              type="solid"
-              raised={true} 
+      if (this.state.gotUserID && this.state.gotChapters && this.state.gotCourse)
+      {
+        //console.log(this.state.courseID)
+        return (
+          <ScrollView>
+              <Card
+                title = {courseChapters[0].name}
+              >
+              <Button 
+                title="Enroll"
+                onPress = {this._handleEnroll}
+                type="solid"
+                raised={true} 
+              />
+              </Card>
+            <Button
+              title="Open WebBrowser"
+              onPress={this._handlePressButtonAsync}
             />
-            </Card>
-          <Button
-            title="Open WebBrowser"
-            onPress={this._handlePressButtonAsync}
-          />
-          <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
-        </ScrollView>
-    );
+            <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+          </ScrollView>
+      );
+      }
   }
 }
-
-/* tab example
-from https://reactnavigation.org/docs/en/tab-based-navigation.html
-
-import React from 'react';
-import { Text, View } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-
-class DiscussionScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Discussion Content</Text>
-      </View>
-    );
-  }
-}
-
-class CollaborationScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Collaboration Content</Text>
-      </View>
-    );
-  }
-}
-
-class FileScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>File Content</Text>
-      </View>
-    );
-  }
-}
-
-const TabNavigator = createBottomTabNavigator({
-  Discussions: DiscussionScreen,
-  Collaborations: CollaborationScreen,
-  Files: FileScreen,
-});
-
-export default createAppContainer(TabNavigator);
-
-
-
-
-<Button
-            //onPress={onPressDiscussions}
-            title="Discussions"
-            color="#1f66b1"
-            accessibilityLabel="Discussions button"
-          />
-         
-          <Button
-            //onPress={onPressCollaborations}
-            title="Collaborations"
-            color="#1f66b1"
-            accessibilityLabel="Collaborations button"
-          />
-          
-          <Button
-            //onPress={onPressFiles}
-            title="Files"
-            color="#1f66b1"
-            accessibilityLabel="Files button"
-          />
-*/

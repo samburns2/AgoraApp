@@ -32,6 +32,7 @@ export default class CourseListScreen extends React.Component {
             this.getCourseList();
             this.state.gotCourses = true;
         }
+        this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
         
         if (this.state.data.items === undefined)
         {
@@ -39,25 +40,25 @@ export default class CourseListScreen extends React.Component {
         }
         else
         {
-            const course = this.state.data.items.map(function(course, i){
+            const course = this.state.data.items.map(course => {
                 return (
-                    <ScrollView style={{flex: 1}} key = {i}>
+                    <ScrollView style={{flex: 1}} key = {course.id}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: course.id, courseName: course.name, userEmail: this.state.email})}>
                         <Card
                             title={course.name}
                             image={{uri: course.course_card_image_url}}
-                        > 
+                        >
                             <Text style={{marginBottom: 10}}>
                                 {course.description}
                             </Text>
                         </Card>
+                    </TouchableOpacity>
                     </ScrollView>
                 )
               })
             return (
-                <ScrollView style={{flex: 1}}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: course.id, courseName: course.name})}>
+                <ScrollView style={{flex: 1}}>                   
                     {course}
-                </TouchableOpacity>
                 </ScrollView>
             );
         }

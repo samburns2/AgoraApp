@@ -19,7 +19,6 @@ import {TouchableOpacity } from 'react-native'
 import { 
   createSwitchNavigator, 
   createStackNavigator ,
-  createDrawerNavigator,
   createMaterialTopTabNavigator,
   createAppContainer
 } from 'react-navigation'
@@ -38,11 +37,12 @@ import HomeScreen from './screens/HomeScreen'
 import CourseListScreen from './screens/CourseList';
 import SearchScreen from './screens/SearchScreen'
 import SettingsScreen from './screens/SettingsScreen'
+import SingleCourseScreen from './screens/SingleCourseScreen';
+import TakeCourseScreen from './screens/TakeCourseScreen';
 
 // Amplify imports and config
 import Amplify from '@aws-amplify/core'
 import config from './aws-exports'
-import SingleCourseScreen from './screens/SingleCourseScreen';
 import CreateThinkificUserScreen from './screens/CreateThinkificUserScreen';
 Amplify.configure(config)
 
@@ -131,6 +131,9 @@ const AppStackNavigator = createStackNavigator({
   },
   SingleCourse: {
     screen: SingleCourseScreen
+  },
+  TakeCourse: {
+    screen: TakeCourseScreen
   }
 })
 

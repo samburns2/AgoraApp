@@ -38,7 +38,7 @@ export default class EnrollmentDashboard extends React.Component {
           .then(response => {
             this.state.courseData.push(response.data)
             this.setState(this.state.courseData)
-          //  console.log(this.state.courseData)
+           // console.log(this.state.courseData)
           })
         }
       })
@@ -46,15 +46,15 @@ export default class EnrollmentDashboard extends React.Component {
 
     render() {
       this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
-      const enrollment = this.state.courseData.map(function(enrollment, i){
+      const enrollment = this.state.courseData.map(enrollment => {
         return (
-            <TouchableOpacity key = {i}>
-              <Card
-                title={enrollment.name}
-                image={{uri: enrollment.course_card_image_url}}
-              > 
-              </Card>
-            </TouchableOpacity>
+          <TouchableOpacity key = {enrollment.id} onPress={() => this.props.navigation.navigate('TakeCourse', {courseID: enrollment.id, courseName: enrollment.name})}>
+            <Card
+              title={enrollment.name}
+              image={{uri: enrollment.course_card_image_url}}
+            >   
+            </Card>
+          </TouchableOpacity>
         )
       })
   
@@ -70,10 +70,9 @@ export default class EnrollmentDashboard extends React.Component {
       else
       {
         return ( 
-          <ScrollView style={{flex: 1}}>
-          {enrollment}
+          <ScrollView style={{flex: 1}}>     
+              {enrollment}
           </ScrollView>
-  
         );
       }
 
