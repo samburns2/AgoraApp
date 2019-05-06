@@ -1,8 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import {Alert, View, ScrollView, Text} from 'react-native';
+import {Alert, View, ScrollView, Text, StyleSheet} from 'react-native';
 import { Button, Card } from 'react-native-elements';
-import { Constants, WebBrowser } from 'expo';
+import { WebBrowser } from 'expo';
+
+const style = StyleSheet.create({
+  take: {
+    textAlign: 'center',
+    fontSize: 25,
+    lineHeight: 30,
+  },
+});
 
 export default class SingleCourseScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -18,8 +26,7 @@ export default class SingleCourseScreen extends React.Component {
     chapters: {},
     gotChapters: false,
     email: '',
-    userID: {},
-    gotUserID: false
+    userID: {}
 }
 
   getCourse = () =>{
@@ -60,6 +67,11 @@ _handleEnroll = async () => {
   var self = this;
   console.log(this.state.courseID)
   console.log(this.state.userID)
+  this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');
+  var user_id = axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email);
+  var all_users = axios.get("https://api.thinkific.com/api/public/v1/users");
+  console.log(all_users);
+  //console.log("user's ID: " + user_id);
   
   for(var i = 0; i < 25; i++)
   {
@@ -71,19 +83,15 @@ _handleEnroll = async () => {
       ]
     );
   }
-  return axios.post("https://api.thinkific.com/api/public/v1/enrollments/", {
-    course_id: this.state.courseID,
-    user_id: this.state.userID
-  })
+  return axios.get("https://api.thinkific.com/api/public/v1/enrollments/" + course_num + "/" + this.state.userID)
   .then(function(response) {
     console.log(response.data)
   })
 };
 
   render() {
-    this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');//works!
-    this.state.courseID = this.props.navigation.getParam('courseID', 'NO-COURSEID');
-    if (!this.state.gotCourse){
+    if (!this.state.gotCourse)
+    {
       this.getCourse();
       this.state.gotCourse = true;
     }
@@ -109,28 +117,28 @@ _handleEnroll = async () => {
       return <View/>
     }
 
-      if (this.state.gotUserID && this.state.gotChapters && this.state.gotCourse)
+    if (this.state.gotUserID && this.state.gotChapters && this.state.gotCourse)
       {
-        //console.log(this.state.courseID)
         return (
           <ScrollView>
-              <Card
-                title = {courseChapters[0].name}
-              >
-              <Button 
-                title="Enroll"
-                onPress = {this._handleEnroll}
-                type="solid"
-                raised={true} 
-              />
-              </Card>
+            <Text style = {style.take}>Want to enroll in this course?</Text>
+            <Button 
+              title="Enroll"
+              onPress = {this._handleEnroll}
+              type="solid"
+              raised={true} 
+            />
+   
+            <Text style = {style.take}>Want to take this course?</Text>
             <Button
-              title="Open WebBrowser"
+              title="Open Course"
+              type = "solid"
+              raised={true} 
               onPress={this._handlePressButtonAsync}
             />
-            <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+              <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
           </ScrollView>
-      );
+        );
       }
-  }
+    }
 }

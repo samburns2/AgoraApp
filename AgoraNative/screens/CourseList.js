@@ -1,7 +1,7 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Button, View, StatusBar, Image, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
 import axios from 'axios';
-import { Card, Tile } from 'react-native-elements';
+import {Card} from 'react-native-elements';
 
 const styles = StyleSheet.create({
     container: {
@@ -56,8 +56,8 @@ export default class CourseListScreen extends React.Component {
                     </ScrollView>
                 )
               })
-            return (
-                <ScrollView style={{flex: 1}}>                   
+            return (               
+                <ScrollView style={{flex: 1}}>
                     {course}
                 </ScrollView>
             );

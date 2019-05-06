@@ -48,32 +48,25 @@ export default class SearchScreen extends React.Component {
   }
 
   render() {
-
-    const result = this.state.searchArray.map(result => {
-      return (
-        <TouchableOpacity key = {result.id} onPress={() => this.props.navigation.navigate('TakeCourse', {courseID: enrollment.id, courseName: enrollment.name})}>
-          <Card
-            title={result.name}
-            image={{uri: result.course_card_image_url}}
-          >   
-            <Text style={{marginBottom: 10}}>
-              {result.description}
-            </Text>
-          </Card>
-        </TouchableOpacity>
-      )
-    })
+    
     if (!this.state.gotCourses){
       this.getCourseList();
       this.state.gotCourses = true;
+      
     }
-
     courses = this.state.originalData.items;
-
     if (!courses)
     {
         return <ActivityIndicator size="large" color="#fff" />
     }
+    
+    return (
+      <View style={styles.container}>
+        <TextInput
+          style={{height: 50, borderColor: 'gray', padding: 15}}
+          placeholder="Try 'math for second graders'"
+          onChangeText={(text) => this.setState({text})}
+        />
 
     console.log(this.state.searchedCourses)
 
