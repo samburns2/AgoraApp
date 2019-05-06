@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Image, TextInput, StyleSheet, View, Button} from 'react-native';
-import { Text, ScrollView, TouchableOpacity } from "react-native";
-import { Card, Tile } from 'react-native-elements';
+import {TextInput, StyleSheet, View, Button} from 'react-native';
+import { Text } from "react-native";
+import { Card } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,13 +44,13 @@ export default class SearchScreen extends React.Component {
   }
 
   render() {
-
+    
     if (!this.state.gotCourses){
       this.getCourseList();
       this.state.gotCourses = true;
-      courses = this.state.originalData.items;
+      
     }
-
+    courses = this.state.originalData.items;
     if (!courses)
     {
         return <View/>
@@ -60,7 +60,7 @@ export default class SearchScreen extends React.Component {
       <View style={styles.container}>
         <TextInput
           style={{height: 50, borderColor: 'gray', padding: 15}}
-          placeholder="Try 'yoga for beginners'"
+          placeholder="Try 'math for second graders'"
           onChangeText={(text) => this.setState({text})}
         />
 
