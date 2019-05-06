@@ -18,8 +18,12 @@ export default class SingleCourseScreen extends React.Component {
     chapters: {},
     gotChapters: false,
     email: '',
+<<<<<<< ours
     userID: {},
     gotUserID: false
+=======
+    userID: {}
+>>>>>>> theirs
 }
 
   getCourse = () =>{
@@ -58,8 +62,16 @@ getUserID = () => {
 
 _handleEnroll = async () => {
   var self = this;
+<<<<<<< ours
   console.log(this.state.courseID)
   console.log(this.state.userID)
+=======
+  this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');//works!
+  var user_id = axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email);
+  var all_users = axios.get("https://api.thinkific.com/api/public/v1/users");
+  console.log(all_users);
+  //console.log("user's ID: " + user_id);
+>>>>>>> theirs
   
   for(var i = 0; i < 25; i++)
   {
@@ -71,18 +83,25 @@ _handleEnroll = async () => {
       ]
     );
   }
+<<<<<<< ours
   return axios.post("https://api.thinkific.com/api/public/v1/enrollments/", {
     course_id: this.state.courseID,
     user_id: this.state.userID
   })
+=======
+  return axios.get("https://api.thinkific.com/api/public/v1/enrollments/" + course_num + "/" + this.state.userID)
+>>>>>>> theirs
   .then(function(response) {
     console.log(response.data)
   })
 };
 
   render() {
+<<<<<<< ours
     this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');//works!
     this.state.courseID = this.props.navigation.getParam('courseID', 'NO-COURSEID');
+=======
+>>>>>>> theirs
     if (!this.state.gotCourse){
       this.getCourse();
       this.state.gotCourse = true;
@@ -128,9 +147,22 @@ _handleEnroll = async () => {
               title="Open WebBrowser"
               onPress={this._handlePressButtonAsync}
             />
+<<<<<<< ours
             <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
           </ScrollView>
       );
       }
   }
 }
+=======
+            </Card>
+          <Button
+            title="Open WebBrowser"
+            onPress={this._handlePressButtonAsync}
+          />
+          <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+        </ScrollView>
+    );
+  }
+}
+>>>>>>> theirs

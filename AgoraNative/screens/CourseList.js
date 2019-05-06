@@ -57,7 +57,13 @@ export default class CourseListScreen extends React.Component {
                 )
               })
             return (
+<<<<<<< ours
                 <ScrollView style={{flex: 1}}>                   
+=======
+                <ScrollView style={{flex: 1}}>
+                
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: course.id, courseName: course.name, userEmail: this.state.email})}>
+>>>>>>> theirs
                     {course}
                 </ScrollView>
             );
