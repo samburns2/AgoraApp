@@ -9,7 +9,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white'
-  }
+  },
+  take: {
+    textAlign: 'center',
+    fontSize: 20,
+    lineHeight: 25,
+    marginTop: 20,
+  },
+  push: {
+    marginTop: 10,
+  },
 });
 
 export default class SearchScreen extends React.Component {
@@ -38,12 +47,7 @@ export default class SearchScreen extends React.Component {
   keywordCheck = () => {
     newData = this.state.originalData.items.filter((item) => String(item.keywords).includes(this.state.text.toLowerCase()));
     this.state.searchData.items = newData;
-
-    console.log(this.state.text.toLowerCase());
-    console.log('search done');
-    //console.log(this.state.searchData.items);
     this.state.searchArray = this.state.searchData.items
-    console.log(this.state.searchArray)
     this.setState({searchedCourses: true})
   }
 
@@ -75,22 +79,24 @@ export default class SearchScreen extends React.Component {
         return <ActivityIndicator size="large" color="#fff" />
     }
 
-    console.log(this.state.searchedCourses)
-
     if (!this.state.searchedCourses)
     {
       return (
         <View style={{flex: 1}}>
+        <Text style = {styles.take}>Want to search for a new course to take?</Text>
           <TextInput
-            style={{height: 50, borderColor: 'gray', padding: 15}}
-            placeholder="Try 'yoga for beginners'"
+            style={{height: 50, textAlign:'center', padding: 15}}
+            placeholder="Try 'math for second graders'"
             onChangeText={(text) => this.setState({text})}
           />
           <Button
+            style = {styles.push}
             onPress={text => this.keywordCheck()}
             title="SEARCH"
             color="#1f66b1"
-            accessibilityLabel="Search enter"
+            type = "solid"
+            raised={true} 
+            accessibilityLabel="search for courses by pressing this button"
         />
         </View>
       );
@@ -99,16 +105,18 @@ export default class SearchScreen extends React.Component {
     return (
       <ScrollView style={{flex: 1}}>
           <TextInput
-            style={{height: 50, borderColor: 'gray', padding: 15}}
-            placeholder="Try 'yoga for beginners'"
+            style={{height: 50, borderColor: 'gray', textAlign:'center', padding: 15}}
+            placeholder="Try 'math for second graders'"
             onChangeText={(text) => this.setState({text})}
           />
           <Button
+            style = {styles}
             onPress={text => this.keywordCheck()}
             title="SEARCH"
             color="#1f66b1"
-            accessibilityLabel="Search enter"
-            style={styles}
+            type = "solid"
+            raised={true} 
+            accessibilityLabel="search for courses by pressing this button"
         />
         {result}
       </ScrollView>

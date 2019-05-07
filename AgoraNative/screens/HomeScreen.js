@@ -23,7 +23,6 @@ export default class EnrollmentDashboard extends React.Component {
     getEnrollments = () => {
       axios.get("https://api.thinkific.com/api/public/v1/enrollments?query%5Bemail%5D=" + this.state.email)
       .then(response => {
-        //console.log(response.data)
         this.setState({enrollmentData: response.data, totalEnrollments: response.data.meta.pagination.total_items})
         courseIDs = []
         var i;
@@ -38,7 +37,6 @@ export default class EnrollmentDashboard extends React.Component {
           .then(response => {
             this.state.courseData.push(response.data)
             this.setState(this.state.courseData)
-           // console.log(this.state.courseData)
           })
         }
       })
