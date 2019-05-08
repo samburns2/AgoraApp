@@ -1,14 +1,7 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Button, View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import axios from 'axios';
 import { Card } from 'react-native-elements';
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-});
 
 export default class EnrollmentDashboard extends React.Component {
     state = {
@@ -73,6 +66,5 @@ export default class EnrollmentDashboard extends React.Component {
           </ScrollView>
         );
       }
-
     }
   }

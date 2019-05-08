@@ -10,8 +10,6 @@ import {
   Keyboard,
   View,
   Alert,
-  Modal,
-  FlatList,
   Animated,
 } from 'react-native'
 

@@ -35,7 +35,7 @@ export default class SingleCourseScreen extends React.Component {
 
   getCourse = () =>{
     var self = this;
-    return axios.get("https://api.thinkific.com/api/public/v1/courses/" + this.state.ID)
+    axios.get("https://api.thinkific.com/api/public/v1/courses/" + this.state.ID)
     .then(function(response){
         self.setState({data: response.data});
 
@@ -44,7 +44,7 @@ export default class SingleCourseScreen extends React.Component {
 
 getChapters = () => {
   var self = this;
-  return axios.get("https://api.thinkific.com/api/public/v1/chapters/1826624/contents?page=1&limit=25")
+  axios.get("https://api.thinkific.com/api/public/v1/chapters/1826624/contents?page=1&limit=25")
   .then(function(response){
     self.setState({chapters: response.data});
   })
@@ -68,19 +68,16 @@ getUserID = () => {
 
 _handleEnroll = async () => {
   this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');
+  Alert.alert(
+    'Enrollment',
+    'You are enrolled in this course!',
+    [
+      {text: 'Close'},
+    ]
+  );
   
-  for(var i = 0; i < 25; i++)
-  {
-    Alert.alert(
-      'Enrollment',
-      'You are enrolled in this course!',
-      [
-        {text: 'Close', onPress: () => console.warn('Close Pressed')},
-      ]
-    );
-  }
-  return axios.get("https://api.thinkific.com/api/public/v1/enrollments/" + course_num + "/" + this.state.userID)
-  .then(function(response) {
+   axios.get("https://api.thinkific.com/api/public/v1/enrollments/" + course_num + "/" + this.state.userID)
+   .then(function(response) {
     console.log(response.data)
   })
 };
@@ -103,7 +100,6 @@ _handleEnroll = async () => {
       this.getUserID();
       this.state.gotUserID = true
     }
-
 
     var courseChapters = this.state.chapters.items;
 

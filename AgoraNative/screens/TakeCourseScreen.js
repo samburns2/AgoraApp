@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import {Alert, View, ScrollView, Text, StyleSheet} from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, ScrollView, Text, StyleSheet} from 'react-native';
+import { Button, Card } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 
 const style = StyleSheet.create({
