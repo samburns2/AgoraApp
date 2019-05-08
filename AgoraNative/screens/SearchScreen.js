@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Image, TextInput, StyleSheet, View} from 'react-native';
+import {TextInput, StyleSheet, View} from 'react-native';
 import { Text, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native";
 import { Card, Button } from 'react-native-elements';
 
@@ -25,6 +25,7 @@ export default class SearchScreen extends React.Component {
     text: '',
     gotCourses: false,
     searchedCourses: false,
+    email:'',
   }
 
   getCourseList = () =>{
@@ -48,10 +49,10 @@ export default class SearchScreen extends React.Component {
   }
 
   render() {
-
+    this.state.email = this.props.navigation.dangerouslyGetParent().getParam('email', 'NO-EMAIL');
     const result = this.state.searchArray.map(result => {
       return (
-        <TouchableOpacity key = {result.id} onPress={() => this.props.navigation.navigate('TakeCourse', {courseID: enrollment.id, courseName: enrollment.name})}>
+        <TouchableOpacity key = {result.id} onPress={() => this.props.navigation.navigate('SingleCourse', {courseID: result.id, courseName: result.name, userEmail: this.state.email})}>
           <Card
             title={result.name}
             image={{uri: result.course_card_image_url}}
@@ -80,7 +81,7 @@ export default class SearchScreen extends React.Component {
     if (!this.state.searchedCourses)
     {
       return (
-        <View style={{flex: 1}}>
+        <View>
           <TextInput
             style={{height: 50, borderColor: 'gray', padding: 15}}
             placeholder="Try 'yoga for beginners'"
@@ -97,7 +98,7 @@ export default class SearchScreen extends React.Component {
     }
     
     return (
-      <ScrollView style={{flex: 1}}>
+      <ScrollView>
           <TextInput
             style={{height: 50, borderColor: 'gray', padding: 15}}
             placeholder="Try 'yoga for beginners'"
@@ -108,7 +109,6 @@ export default class SearchScreen extends React.Component {
             title="SEARCH"
             color="#1f66b1"
             accessibilityLabel="Search enter"
-            style={styles}
         />
         {result}
       </ScrollView>
