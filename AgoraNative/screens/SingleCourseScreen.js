@@ -1,14 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import {Alert, View, ScrollView, Text, StyleSheet} from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 
 const style = StyleSheet.create({
   take: {
     textAlign: 'center',
-    fontSize: 25,
-    lineHeight: 30,
+    fontSize: 20,
+    lineHeight: 25,
+    marginTop: 20,
+  },
+  push: {
+    marginTop: 10,
   },
 });
 
@@ -55,7 +59,6 @@ _handlePressButtonAsync = async () => {
 };
 
 getUserID = () => {
-  //console.log(this.state.email)
   axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email)
   .then(response => {
     this.setState({userID: response.data.items[0].id})
@@ -64,14 +67,7 @@ getUserID = () => {
 }
 
 _handleEnroll = async () => {
-  var self = this;
-  console.log(this.state.courseID)
-  console.log(this.state.userID)
   this.state.email = this.props.navigation.getParam('userEmail', 'NO-EMAIL');
-  var user_id = axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email);
-  var all_users = axios.get("https://api.thinkific.com/api/public/v1/users");
-  console.log(all_users);
-  //console.log("user's ID: " + user_id);
   
   for(var i = 0; i < 25; i++)
   {
@@ -110,7 +106,6 @@ _handleEnroll = async () => {
 
 
     var courseChapters = this.state.chapters.items;
-    var course = this.state.data;
 
     if (!courseChapters)
     {
@@ -123,18 +118,22 @@ _handleEnroll = async () => {
           <ScrollView>
             <Text style = {style.take}>Want to enroll in this course?</Text>
             <Button 
+              style ={style.push}
               title="Enroll"
               onPress = {this._handleEnroll}
               type="solid"
               raised={true} 
+              accessibilityLabel="enroll in class by pressing this button"
             />
    
             <Text style = {style.take}>Want to take this course?</Text>
             <Button
+              style ={style.push}
               title="Open Course"
               type = "solid"
               raised={true} 
               onPress={this._handlePressButtonAsync}
+              accessibilityLabel="open course web browser by pressing this button"
             />
               <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
           </ScrollView>
