@@ -9,7 +9,6 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Keyboard,
-  Alert,
   Animated,
 } from 'react-native'
 

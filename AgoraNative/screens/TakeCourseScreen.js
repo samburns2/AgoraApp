@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Alert, View, ScrollView, Text} from 'react-native';
+import { View, ScrollView, Text} from 'react-native';
 import { Button, Card } from 'react-native-elements';
-import { Constants, WebBrowser } from 'expo';
+import { WebBrowser } from 'expo';
 
 
 export default class TakeCourseScreen extends React.Component {
