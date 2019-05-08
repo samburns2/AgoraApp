@@ -1,11 +1,22 @@
 import React from 'react';
 import axios from 'axios';
-import {Alert, View, ScrollView, Text} from 'react-native';
-import { Button, Card } from 'react-native-elements';
-import { Constants, WebBrowser } from 'expo';
+import {Alert, View, ScrollView, Text, StyleSheet} from 'react-native';
+import { Button } from 'react-native-elements';
+import { WebBrowser } from 'expo';
 
+const style = StyleSheet.create({
+  take: {
+    textAlign: 'center',
+    fontSize: 20,
+    lineHeight: 25,
+    marginTop: 20,
+  },
+  push: {
+    marginTop: 10,
+  },
+});
 
-export default class TakeCourseScreen extends React.Component {
+export default class SingleCourseScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: navigation.getParam('courseName', 'Undefined Course')
@@ -14,10 +25,12 @@ export default class TakeCourseScreen extends React.Component {
 
   state = {
     data: {},
-    ID: {},
+    courseID: {},
     gotCourse: false,
     chapters: {},
     gotChapters: false,
+    email: '',
+    userID: {}
 }
 
   getCourse = () =>{
@@ -25,6 +38,7 @@ export default class TakeCourseScreen extends React.Component {
     return axios.get("https://api.thinkific.com/api/public/v1/courses/" + this.state.ID)
     .then(function(response){
         self.setState({data: response.data});
+
     })
 }
 
@@ -44,10 +58,17 @@ _handlePressButtonAsync = async () => {
   }
 };
 
-  render() {
-    this.state.ID = this.props.navigation.getParam('courseID', 'NO-ID');
+getUserID = () => {
+  axios.get("https://api.thinkific.com/api/public/v1/users?query%5Bemail%5D=" + this.state.email)
+  .then(response => {
+    this.setState({userID: response.data.items[0].id})
+  })
+  
+}
 
-    if (!this.state.gotCourse){
+  render() {
+    if (!this.state.gotCourse)
+    {
       this.getCourse();
       this.state.gotCourse = true;
     }
@@ -58,25 +79,36 @@ _handlePressButtonAsync = async () => {
       this.state.gotChapters = true;
     }
 
+    if (this.state.email != 'NO-EMAIL' && !this.state.gotUserID)
+    {
+      this.getUserID();
+      this.state.gotUserID = true
+    }
+
+
     var courseChapters = this.state.chapters.items;
-    var course = this.state.data;
 
     if (!courseChapters)
     {
       return <View/>
     }
-      return (
-        <ScrollView>
-            <Card
-              title = {courseChapters[0].name}
-            >
-            </Card>
-          <Button
-            title="Open WebBrowser"
-            onPress={this._handlePressButtonAsync}
-          />
-          <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
-        </ScrollView>
-    );
-  }
+
+    if (this.state.gotUserID && this.state.gotChapters && this.state.gotCourse)
+      {
+        return (
+          <ScrollView>
+            <Text style = {style.take}>Want to take this course?</Text>
+            <Button
+              style ={style.push}
+              title="Open Course"
+              type = "solid"
+              raised={true} 
+              onPress={this._handlePressButtonAsync}
+              accessibilityLabel="open course web browser by pressing this button"
+            />
+              <Text>{this.state.result && JSON.stringify(this.state.result)}</Text>
+          </ScrollView>
+        );
+      }
+    }
 }
