@@ -76,9 +76,12 @@ _handleEnroll = async () => {
     ]
   );
   
-   axios.get("https://api.thinkific.com/api/public/v1/enrollments/" + course_num + "/" + this.state.userID)
+   axios.post('https://api.thinkific.com/api/public/v1/enrollments/', 
+   {
+     course_id: this.state.courseID,
+     user_id: this.state.userID
+    })
    .then(function(response) {
-    console.log(response.data)
   })
 };
 

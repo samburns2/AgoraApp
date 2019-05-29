@@ -142,7 +142,7 @@ const AuthStackNavigator = createStackNavigator({
   Welcome: {
     screen: WelcomeScreen,
     navigationOptions: () => ({
-      title: `Welcome to this App`, // for the header screen
+      title: `Agora Teaching App`, // for the header screen
       headerBackTitle: 'Back'
     }),
   },
